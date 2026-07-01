@@ -1,0 +1,6 @@
+enum Role {
+  ADMIN
+  MANAGER
+  CASHIER
+  INVENTORY_STAFF
+}
