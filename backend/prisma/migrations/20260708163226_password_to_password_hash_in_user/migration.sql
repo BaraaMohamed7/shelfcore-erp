@@ -6,5 +6,4 @@
 
 */
 -- AlterTable
-ALTER TABLE "User" DROP COLUMN "password",
-ADD COLUMN     "passwordHash" TEXT NOT NULL;
+ALTER TABLE "User" RENAME COLUMN "password" TO "passwordHash";
