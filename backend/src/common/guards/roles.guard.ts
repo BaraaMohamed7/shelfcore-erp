@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { Role } from '../../generated/prisma/client';
 import { Reflector } from '@nestjs/core';
 import { AuthenticatedUser } from '../types/authenticated-user.type';
+import { ROLES_KEY } from '../decorators/roles.decorator';
 
 @Injectable()
 export class RolesGuard implements CanActivate {
@@ -15,7 +16,7 @@ export class RolesGuard implements CanActivate {
   canActivate(
     context: ExecutionContext,
   ): boolean | Promise<boolean> | Observable<boolean> {
-    const roles = this.reflector.get<Role[]>('roles', context.getHandler());
+    const roles = this.reflector.get<Role[]>(ROLES_KEY, context.getHandler());
     if (!roles) {
       return true;
     }
