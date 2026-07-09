@@ -10,10 +10,10 @@ async function bootstrap() {
   app.use(helmet());
 
   app.setGlobalPrefix('api');
-  app.enableVersioning({
-    type: VersioningType.URI,
-    defaultVersion: '1',
-  });
+  // app.enableVersioning({
+  //   type: VersioningType.URI,
+  //   defaultVersion: '1',
+  // });
 
   app.useGlobalPipes(
     new ValidationPipe({
@@ -27,11 +27,20 @@ async function bootstrap() {
     .setTitle('Retail ERP')
     .setDescription('Retail ERP API documentation')
     .setVersion('1.0')
-    .addBearerAuth()
+    .addBearerAuth({
+      type: 'http',
+      scheme: 'bearer',
+      bearerFormat: 'JWT',
+    })
+    .addSecurityRequirements('bearer')
     .build();
 
   const documentFactory = SwaggerModule.createDocument(app, swaggerConfig);
-  SwaggerModule.setup('api/docs', app, documentFactory);
+  SwaggerModule.setup('api/docs', app, documentFactory, {
+    swaggerOptions: {
+      persistAuthorization: true,
+    },
+  });
 
   await app.listen(process.env.PORT ?? 3000);
 }
