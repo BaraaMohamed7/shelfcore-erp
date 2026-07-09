@@ -31,6 +31,7 @@ export class AuthService {
     const accessToken = await this.tokensService.generateAccessToken({
       sub: user.id,
       email: user.email,
+      name: user.name,
       role: user.role,
     });
 
