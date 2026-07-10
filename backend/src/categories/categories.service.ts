@@ -13,7 +13,7 @@ export class CategoriesService {
 
   public async findOne(id: number) {
     const category = await this.prisma.category.findUnique({ where: { id } });
-    if (!category || category.isActive === false) {
+    if (!category || !category.isActive) {
       throw new NotFoundException(`Category not found`);
     }
     return category;
@@ -39,7 +39,7 @@ export class CategoriesService {
 
   public async updateOne(id: number, data: UpdateCategoryDto) {
     const category = await this.prisma.category.findUnique({ where: { id } });
-    if (!category || category.isActive === false) {
+    if (!category || !category.isActive) {
       throw new NotFoundException(`Category not found`);
     }
     return await this.prisma.category.update({ where: { id }, data });
@@ -47,7 +47,7 @@ export class CategoriesService {
 
   public async deactivateOne(id: number) {
     const category = await this.prisma.category.findUnique({ where: { id } });
-    if (!category) {
+    if (!category || !category.isActive) {
       throw new NotFoundException(`Category not found`);
     }
     return await this.prisma.category.update({
