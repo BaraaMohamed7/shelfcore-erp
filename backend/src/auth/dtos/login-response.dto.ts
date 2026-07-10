@@ -1,6 +1,6 @@
 import { User } from '../../generated/prisma/client';
 
-class loginUserDto {
+class LoginUserDto {
   id!: number;
   email!: string;
   name!: string;
@@ -8,7 +8,7 @@ class loginUserDto {
   createdAt!: Date;
 }
 export class LoginResponseDto {
-  user: loginUserDto;
+  user: LoginUserDto;
   accessToken!: string;
 
   constructor(user: User, accessToken: string) {
